@@ -18,7 +18,7 @@ userid_mapping = {
 
 def authenticate(username, password):
     user = username_mapping.get(username, None)
-    if user and user.password == password:
+    if user and safe_str_cmp(user.password, password):
         return user
     
 def identity(payload):
