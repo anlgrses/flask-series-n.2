@@ -2,6 +2,7 @@ from flask import Flask, request
 from flask_restful import Resource, Api
 
 
+
 app = Flask(__name__)
 
 api = Api(app)
@@ -15,6 +16,9 @@ class Item(Resource):
          return {"item" : item}, 200 if item is not None else 404
 
      def post(self, name):
+         if next(filter(lambda x: x["name"] == name, items), None) is not None
+            return {"message":"An item wit name '{}' already exists".format(name)}
+
          data = request.get_json()
          item = {"name" : name, "price" : data['price']}
          items.append(item)   
