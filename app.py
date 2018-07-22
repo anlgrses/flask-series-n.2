@@ -14,7 +14,6 @@ jwt = JWT(app,authenticate,identity)
 
 items = []
 
-
 class Item(Resource):
     @jwt_required
      def get(self, name):
@@ -24,7 +23,6 @@ class Item(Resource):
      def post(self, name):
          if next(filter(lambda x: x["name"] == name, items), None) is not None:
             return {"message":"An item wit name '{}' already exists".format(name)}
-
          data = request.get_json()
          item = {"name" : name, "price" : data['price']}
          items.append(item)   
